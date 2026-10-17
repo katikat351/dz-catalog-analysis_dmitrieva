@@ -1,3 +1,4 @@
+import math
 
 movies = [
     {
@@ -81,3 +82,32 @@ movies = [
         "actors": ["P. Diaz", "T. Chalamet"],
     },
 ]
+
+# Этап 1. Разминка: переменные, числа, math
+
+
+def average_rating(movies):
+    total = sum(movie["rating"] for movie in movies)
+    return round(total / len(movies), 1)
+
+
+def catalog_age_stats(movies, current_year=2026):
+    ages = [current_year - movie["year"] for movie in movies]
+    oldest = max(ages)  # самый старый
+    newest = min(ages)  # самый новый
+    mean_age = math.ceil(sum(ages) / len(ages))  # средний возраст
+    return (oldest, newest, mean_age)
+
+
+def duration_in_hours(minutes):
+    hours = minutes // 60
+    mins = minutes % 60
+    return f"{hours}ч {mins}м"
+
+
+"""
+#проверка:
+print(average_rating(movies))        # 7.2
+print(catalog_age_stats(movies))     # (15, 2, 8)
+print(duration_in_hours(155))        # 2ч 35м
+"""
