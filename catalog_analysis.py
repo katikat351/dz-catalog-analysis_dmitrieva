@@ -132,3 +132,59 @@ def decade_label(year):
             return "недавние"
         case _ if year < 2015:
             return "старые"
+
+
+# Этап 3. Циклы
+
+# 1. фильмы, которые не комедии
+print("Этап 3. Фильмы, которые не комедии")
+for movie in movies:
+    if "comedy" in movie["genres"]:
+        continue
+    print(movie["title"])
+print("-----------------------")
+
+
+# 2. первый фильм с рейтингом выше 9.0
+def find_first_masterpiece(movies):
+    i = 0
+    while i < len(movies):
+        if movies[i]["rating"] > 9.0:
+            print(f"Первый шедевр: {movies[i]['title']} ({movies[i]['rating']})")
+            break
+        i += 1
+    else:
+        print("Шедевров не найдено")
+
+
+# 3. for с накопительной переменной
+def count_long_movies(movies, threshold=120):
+    count = 0
+    for movie in movies:
+        if movie["duration_min"] > threshold:
+            count += 1
+    return count
+
+# Этап 4. Строки
+
+
+def normalize_title(title):
+    words = title.split()
+    result = []
+    for word in words:
+        result.append(word[0].upper() + word[1:].lower())
+    return " ".join(result)
+
+
+def make_slug(title):
+    return title.lower().replace(" ", "-")
+
+
+def format_report_line(movie):
+    title = normalize_title(movie["title"])
+    genres = ", ".join(sorted(movie["genres"]))
+    duration = duration_in_hours(movie["duration_min"])
+    return (
+        f'"{title}" ({movie["year"]}) — '
+        f"{movie['rating']}/10, {duration}, жанры: {genres}"
+    )
